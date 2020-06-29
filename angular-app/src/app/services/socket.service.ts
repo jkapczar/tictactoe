@@ -18,4 +18,8 @@ export class SocketService {
       //.pipe(map( (data) => console.log(data)));
   }
 
+  disconnect() {
+    return this.socket.fromEvent('disconnect');
+  }
+
 }
