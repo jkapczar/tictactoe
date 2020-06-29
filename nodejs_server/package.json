@@ -1,0 +1,28 @@
+{
+  "name": "GameServer",
+  "description": "Game server teszt",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "cors": "",
+    "express": "3.x",
+    "randomstring": "^1.1.5",
+    "socket.io": "2.0"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
