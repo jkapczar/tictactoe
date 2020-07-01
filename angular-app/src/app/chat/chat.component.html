@@ -1,0 +1,10 @@
+<form #msgForm="ngForm" (ngSubmit)="sendMessage(msgForm)">
+  <label for="msg">Message: </label>
+  <input type="text" class="form-control" ngModel id="msg" name="msg">
+  <br><br>
+  <button type="submit">Send message</button>
+</form>
+<br><br>
+<hr>
+<br><br>
+<textarea style="width: 500px; height: 300px">{{messages}}</textarea>

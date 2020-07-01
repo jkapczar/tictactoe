@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserService} from '../services/user.service';
 import {SocketService} from '../services/socket.service';
-import {Form, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-pregame',
@@ -9,22 +11,29 @@ import {Form, NgForm} from '@angular/forms';
 })
 export class PregameComponent implements OnInit {
 
-  constructor(private socketService: SocketService) {}
+  constructor(private router: Router,
+              private userService: UserService,
+              private socketService: SocketService) {}
 
-  messages = '';
+  servers: {id: string, host: string, members: string[]}[] = [];
 
   ngOnInit(): void {
-    this.socketService.getMessage().subscribe((data: {clientid: string, msg: string}) => {
-      this.messages += data.clientid + ': ' + data.msg + '\n';
-    });
-    this.socketService.disconnect().subscribe((data: {clientid: string}) => {
-      console.log('disconnected');
-      this.messages += data.clientid + ' is disconnected!' + '\n';
+    this.socketService.getServers().subscribe((data: {id: string, host: string, members: string[]}[]) => {
+      console.log(data);
+      this.servers = data;
     });
   }
 
-  sendMessage(form: NgForm) {
-    this.socketService.sendMessage(form.value.msg);
+  submitUsername(form: NgForm) {
+    if (form.valid) {
+      this.userService.username = form.value.username;
+      console.log(form.value.username);
+      this.router.navigate(['/game']);
+    }
+  }
+
+  listServers() {
+    this.socketService.askServers();
   }
 
 }

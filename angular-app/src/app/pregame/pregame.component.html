@@ -1,10 +1,26 @@
-<form #msgForm="ngForm" (ngSubmit)="sendMessage(msgForm)">
-  <label for="msg">Message: </label>
-  <input type="text" class="form-control" ngModel id="msg" name="msg">
-  <br><br>
-  <button type="submit">Send message</button>
+
+<form #usernameForm="ngForm" (ngSubmit)="submitUsername(usernameForm)">
+  <label for="username">Username: </label>
+  <input id="username" name="username" type="text" class="form-control" ngModel required/>
+  <button type="submit">Submit</button>
 </form>
+
+
+
+<br><br><br>
+
+
+<p-table [value]="servers">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Host</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-server>
+    <tr>
+      <td>{{server.host}}</td>
+    </tr>
+  </ng-template>
+</p-table>
 <br><br>
-<hr>
-<br><br>
-<textarea style="width: 500px; height: 300px">{{messages}}</textarea>
+<button type="button" (click)="listServers()">List servers</button>
