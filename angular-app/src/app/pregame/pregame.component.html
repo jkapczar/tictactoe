@@ -1,8 +1,28 @@
 
-<form #usernameForm="ngForm" (ngSubmit)="submitUsername(usernameForm)">
+<form #preGameForm="ngForm">
   <label for="username">Username: </label>
-  <input id="username" name="username" type="text" class="form-control" ngModel required/>
-  <button type="submit">Submit</button>
+  <input id="username" name="username" [disabled]="validUserNameSubmitted" type="text" class="form-control" style="width: 30%; margin-bottom: 20px" ngModel required/>
+
+  <label for="servers">Servers: </label>
+  <p-table id="servers" [value]="servers">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Host</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-server>
+      <tr>
+        <td>{{server.host}}</td>
+        <td>
+          <button (click)="joinLobby(server.id)" [disabled]="!preGameForm.valid">Join</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br>
+  <button type="button" (click)="listLobbies()">List servers</button>
+
 </form>
 
 
@@ -10,17 +30,4 @@
 <br><br><br>
 
 
-<p-table [value]="servers">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Host</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-server>
-    <tr>
-      <td>{{server.host}}</td>
-    </tr>
-  </ng-template>
-</p-table>
-<br><br>
-<button type="button" (click)="listServers()">List servers</button>
+

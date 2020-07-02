@@ -16,6 +16,7 @@ export class PregameComponent implements OnInit {
               private socketService: SocketService) {}
 
   servers: {id: string, host: string, members: string[]}[] = [];
+  validUserNameSubmitted = false;
 
   ngOnInit(): void {
     this.socketService.getServers().subscribe((data: {id: string, host: string, members: string[]}[]) => {
@@ -23,16 +24,21 @@ export class PregameComponent implements OnInit {
       this.servers = data;
     });
   }
-
+/*
   submitUsername(form: NgForm) {
     if (form.valid) {
       this.userService.username = form.value.username;
+      this.validUserNameSubmitted = true;
       console.log(form.value.username);
       this.router.navigate(['/game']);
     }
   }
+*/
+  joinLobby(id: string) {
+    this.socketService.joinServers(id);
+  }
 
-  listServers() {
+  listLobbies() {
     this.socketService.askServers();
   }
 
