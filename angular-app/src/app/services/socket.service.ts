@@ -23,24 +23,25 @@ export class SocketService {
   }
 
 
-  createServers() {
-    this.socket.emit('createLobby');
+  createServer(username: string) {
+    this.socket.emit('createServer', {username});
+    this.askServers();
   }
 
   askServers() {
-    this.socket.emit('askLobbies');
+    this.socket.emit('askServers');
   }
 
-  joinServers(id: string) {
-    this.socket.emit('joinLobby', {id});
+  joinServer(id: string, username: string) {
+    this.socket.emit('joinServer', {id, username});
   }
 
-  destroyServers() {
-    this.socket.emit('destroyLobby');
+  destroyServer() {
+    this.socket.emit('destroyServer');
   }
 
   getServers() {
-    return this.socket.fromEvent('getLobbies');
+    return this.socket.fromEvent('getServers');
   }
 
   disconnect() {

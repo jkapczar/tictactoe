@@ -27,27 +27,34 @@ io.sockets.on('connection', function(socket) {
 
   });
 
-  socket.on('createLobby', function(data) {
+  socket.on('createServer', function(data) {
     members = [socket.id];
-    servers.push(new Server(id, data.username, members));
+    servers.push(new Server(socket.id, data.username, members));
+    console.log("create servers");
+
+    console.log(servers);
   });
 
-  socket.on('askLobbies', function() {
+  socket.on('askServers', function() {
     //io.clients[socket.id].emit(servers);
     //console.log(io.sockets);
     console.log('sending servers: ' + servers);
-    io.sockets.connected[socket.id].emit('getLobbies', servers);
+    io.sockets.connected[socket.id].emit('getServers', servers);
     //console.log(socket.clients);
     //io.clients[socket.id]
   });
 
-  socket.on('joinLobby', function(data) {
+  socket.on('joinServer', function(data) {
     console.log(data);
-    //const server = servers.filter(s => s.id === data.id);
-    //server.members.push(socket.id);
+    server = servers.find(s => s.id === data.id);
+    console.log(server);
+    console.log(server.members);
+    server.members.push(socket.id);
+
+    console.log(server);
   });
 
-  socket.on('destroyLobby', function(data) {
+  socket.on('destroyServer', function(data) {
     servers = servers.filter(s => s.id != data.id);
   });
 
