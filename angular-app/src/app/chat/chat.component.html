@@ -1,10 +1,9 @@
-<form #msgForm="ngForm" (ngSubmit)="sendMessage(msgForm)">
-  <label for="msg">Message: </label>
-  <input type="text" class="form-control" ngModel id="msg" name="msg">
-  <br><br>
-  <button type="submit">Send message</button>
-</form>
+
 <br><br>
 <hr>
 <br><br>
 <textarea style="width: 500px; height: 300px">{{messages}}</textarea>
+<form #msgForm="ngForm" (ngSubmit)="sendMessage(msgForm)">
+  <input type="text" class="form-control" style="width: 30%;" ngModel id="msg" name="msg">
+  <button type="submit">Send</button>
+</form>
