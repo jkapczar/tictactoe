@@ -1,13 +1,17 @@
-var express = require('express');
-var app = express();
-const http = require('http');
-var server = require('http').createServer(app).listen(process.env.PORT || 8080);
-var io = require('socket.io').listen(server);
-var randomstring = require("randomstring");
+import { Server } from "socket.io";
 
-io.set('log level', 3);
+const io = new Server(8081, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
 
-class Server {
+
+
+
+
+class ServerModel {
   constructor(id, host, members) {
     this.id = id;
     this.host = host;
@@ -15,32 +19,31 @@ class Server {
   };
 }
 
-servers = [];
-m = ['fsdr342rfw4'];
-servers.push(new Server('asd','asd', m));
+let servers = [];
+//m = ['fsdr342rfw4'];
+//servers.push(new Server('asd','asd', m));
 
 io.sockets.on('connection', function(socket) {
 
   console.log('client connected: ', socket.id);
 
   socket.on('init', function(data) {
-
+      console.log("init");
   });
 
   socket.on('createServer', function(data) {
-    members = [socket.id];
-    servers.push(new Server(socket.id, data.username, members));
+    //let members = [socket.id];
+    //servers.push(new ServerModel(socket.id, data.username, members));
     console.log("create servers");
-
-    console.log(servers);
+    //console.log(servers);
   });
 
-  socket.on('askServers', function() {
+  socket.on('getServers', function() {
     //io.clients[socket.id].emit(servers);
-    //console.log(io.sockets);
+    console.log(io.sockets);
     console.log('sending servers: ' + servers);
     io.sockets.connected[socket.id].emit('getServers', servers);
-    //console.log(socket.clients);
+    console.log(socket.clients);
     //io.clients[socket.id]
   });
 

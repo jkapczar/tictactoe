@@ -3,14 +3,14 @@
   "description": "Game server teszt",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
-    "cors": "",
-    "express": "3.x",
-    "randomstring": "^1.1.5",
-    "socket.io": "2.0"
+    "cors": "^2.8.5",
+    "express": "^3.21.2",
+    "randomstring": "^1.2.2",
+    "socket.io": "^4.5.2"
   },
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "node app.js",
     "start": "node app.js"

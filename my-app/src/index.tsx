@@ -9,10 +9,37 @@ import {
 } from "react-router-dom";
 import Home from "./contaniers/home/Home";
 import Game from "./contaniers/game/Game";
+import { io } from "socket.io-client";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
+interface Server {
+  id: string,
+  host: string,
+  members: string[];
+}
+
+
+interface ServerToClientEvents {
+  getServers: (res: Server[]) => void;
+}
+
+interface ClientToServerEvents {
+  createServer: () => void;
+  getServers: () => void;
+}
+const socket = io("http://localhost:8081");
+
+if (socket != null) {
+  console.log("creating socket");
+  socket.emit("createServer");
+} else {
+  console.log("null socket");
+}
+
 root.render(
   <BrowserRouter>
     <Routes>
